@@ -6,9 +6,6 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/@prashant9428"
   },
-  "bin": {
-    "hello": "./index.js"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
