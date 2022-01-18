@@ -5,6 +5,10 @@ const sayHello = function (name) {
 const TestMe = function(name){
     console.log("name of the user") 
 }
+
+const getUser = function(name){
+    console.log("name of the user") 
+}
 module.exports = {
     sayHello
 }
