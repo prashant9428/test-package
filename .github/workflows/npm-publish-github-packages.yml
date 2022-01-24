@@ -7,34 +7,6 @@ on:
   push:
     branches: [ master ]
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: actions/setup-node@v2
-#         with:
-#           node-version: 12
-#       - run: npm i
-
-  # publish-gpr:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: read
-  #     packages: write
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: 12
-  #         registry-url: https://npm.pkg.github.com/
-  #         scope: "@prashant9428"
-  #     - run: npm i
-  #     - run: npm publish
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
 jobs:
   build:
     name: Release
@@ -44,21 +16,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: 'master'
-      # - name: create a release
-      #   run: npx semantic-release
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v2
-        id: semantic   # Need an `id` for output variables
-        with:
-          branch: master
-          # You can specify specifying version range for the extra plugins if you prefer.
-          extra_plugins: |
-            @semantic-release/git
-            @semantic-release/changelog
+      - name: create a release
+        run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}       
+           
       # - name: Get current date
       #   id: date
       #   run: echo "::set-output name=date::$(date +'%Y-%m-%d-%s')"
