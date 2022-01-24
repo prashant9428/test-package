@@ -41,6 +41,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - run: git tag -a 2.0.0 -m “$(git log --pretty=format:%s 1.0.1 ...HEAD --no-merges)”
+      - run: git tag -a 2.0.0
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
