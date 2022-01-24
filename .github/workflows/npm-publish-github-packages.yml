@@ -72,6 +72,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: 'refs/tags/2.0.0',
-              sha: context.sha
               body: '👋 Thanks for reporting!'
             })
