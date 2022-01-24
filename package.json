@@ -23,5 +23,7 @@
     "url": "https://github.com/prashant9428/test-package/issues"
   },
   "homepage": "https://github.com/prashant9428/test-package#readme",
-  "dependencies": {}
+  "dependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
