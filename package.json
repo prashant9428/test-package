@@ -7,6 +7,7 @@
     "sayHello": "./index.js"
   },
   "scripts": {
+    "git" : "cz",
     "test": "echo \"Error: no test specified\" && exit 1",
     "gateway": "npx @byjus-orders/nucleus-gateway"
   },
@@ -25,5 +26,13 @@
   "homepage": "https://github.com/prashant9428/test-package#readme",
   "dependencies": {
     "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
