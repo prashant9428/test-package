@@ -40,6 +40,13 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
+<<<<<<< HEAD
+=======
+      - name: Checkout branch "master"
+        uses: actions/checkout@v2
+        with:
+          ref: 'master'
+>>>>>>> master
       - name: create a release
         run: npx semantic-release
         env:
