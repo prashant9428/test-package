@@ -41,6 +41,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: create a release
+        uses: actions/checkout@v2
+        with:
+          ref: 'master'
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
