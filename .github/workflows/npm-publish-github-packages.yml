@@ -40,10 +40,11 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: create a release
+      - name: Checkout branch "master"
         uses: actions/checkout@v2
         with:
           ref: 'master'
+      - name: create a release
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
