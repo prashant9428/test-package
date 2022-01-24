@@ -40,20 +40,24 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d-%s')"
-      - name: Checkout branch "master"
-        uses: actions/checkout@v2
-        with:
-          ref: 'master'
-      - name: Release snapshot
-        id: release-snapshot
-        uses: actions/create-release@latest
+      - name: create a release
+        run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.date.outputs.date }}
-          release_name: ${{ steps.date.outputs.date }}
-          draft: false
-          prerelease: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
+      # - name: Get current date
+      #   id: date
+      #   run: echo "::set-output name=date::$(date +'%Y-%m-%d-%s')"
+      # - name: Checkout branch "master"
+      #   uses: actions/checkout@v2
+      #   with:
+      #     ref: 'master'
+      # - name: Release snapshot
+      #   id: release-snapshot
+      #   uses: actions/create-release@latest
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ steps.date.outputs.date }}
+      #     release_name: ${{ steps.date.outputs.date }}
+      #     draft: false
+      #     prerelease: false
