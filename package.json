@@ -11,9 +11,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "gateway": "npx @byjus-orders/nucleus-gateway"
   },
-  "repository": {
-    "url": "https://github.com/prashant9428/test-package"
-  },
   "author": "",
   "license": "ISC",
   "bugs": {
