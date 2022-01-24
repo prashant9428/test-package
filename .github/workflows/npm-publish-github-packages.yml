@@ -4,7 +4,10 @@
 name: Node.js Package
 
 on:
-  workflow_dispatch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   build:
@@ -16,20 +19,28 @@ jobs:
           node-version: 12
       - run: npm i
 
-  publish-gpr:
+  # publish-gpr:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 12
+  #         registry-url: https://npm.pkg.github.com/
+  #         scope: "@prashant9428"
+  #     - run: npm i
+  #     - run: npm publish
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+  release-verison:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-          scope: "@prashant9428"
-      - run: npm i
-      - run: npm publish
+      - run: Git tag -a 2.0.0 -m “$(git log --pretty=format:%s 1.0.1 ...HEAD --no-merges)”
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
