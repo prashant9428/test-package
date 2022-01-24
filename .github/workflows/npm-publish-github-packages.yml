@@ -37,25 +37,41 @@ on:
   #       env:
   #         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
+# jobs:
+#   build:
+#     name: Release
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Get current date
+#         id: date
+#         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+#       - name: Checkout branch "master"
+#         uses: actions/checkout@v2
+#         with:
+#           ref: 'master'
+#       - name: Release snapshot
+#         id: release-snapshot
+#         uses: actions/create-release@latest
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         with:
+#           tag_name: ${{ steps.date.outputs.date }}
+#           release_name: ${{ steps.date.outputs.date }}
+#           draft: false
+#           prerelease: false
+
 jobs:
-  build:
-    name: Release
+  comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-      - name: Checkout branch "master"
-        uses: actions/checkout@v2
+      - uses: actions/github-script@v5
         with:
-          ref: 'master'
-      - name: Release snapshot
-        id: release-snapshot
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.date.outputs.date }}
-          release_name: ${{ steps.date.outputs.date }}
-          draft: false
-          prerelease: false
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/2.0.0',
+              sha: context.sha
+              body: '👋 Thanks for reporting!'
+            })
