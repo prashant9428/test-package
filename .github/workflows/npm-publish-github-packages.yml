@@ -14,8 +14,9 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout branch "master"
+      - name: branch name
         run: echo "${github.ref}"
+      - name: Checkout branch "master"
         if: github.ref == 'refs/heads/development'
         uses: actions/checkout@v2
         with:
