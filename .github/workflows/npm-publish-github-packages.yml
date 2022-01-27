@@ -5,7 +5,7 @@ name: Node.js Package
 
 on:
   push:
-    branches: [ master ]
+    branches: [ development, master ]
 
 jobs:
   build:
@@ -13,9 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch "master"
+        run: echo "${github.ref}"
+        if: github.ref == 'refs/heads/development'
         uses: actions/checkout@v2
         with:
-          ref: 'master'
+          ref: 'development'
       - name: create a release
         run: npx semantic-release
         env:
