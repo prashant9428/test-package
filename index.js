@@ -11,7 +11,10 @@ const getUser = function(name){
     console.log("new user added ")
     console.log("new user added   ")
     console.log("new user 2")
+    console.log("new user 3")
 }
+
+
 module.exports = {
     sayHello
 }
