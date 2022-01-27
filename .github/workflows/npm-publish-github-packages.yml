@@ -16,16 +16,17 @@ jobs:
     steps:
       - name: branch name
         run: echo "${{github.ref}}"
-      - name: Checkout branch "${{github.ref}}"
+      - name: Checkout branch "development"
         if: github.ref == 'refs/heads/development'
         uses: actions/checkout@v2
         with:
           ref: 'development'
+      - name: Checkout branch "master"
         if: github.ref == 'refs/heads/master'
         uses: actions/checkout@v2
         with:
-          ref: 'master'
-      - name: create a release
+          ref: 'master'          
+    - name: create a release
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}       
