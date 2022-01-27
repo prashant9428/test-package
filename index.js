@@ -9,7 +9,7 @@ const TestMe = function(name){
 const getUser = function(name){
     console.log("name of the user1") 
     console.log("new user added ")
-    
+    console.log("new user added  ")
 }
 module.exports = {
     sayHello
