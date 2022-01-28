@@ -32,10 +32,15 @@ jobs:
       #   run: npx semantic-release
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-      - name: Set output
-        run: echo "${{git describe --tags --abbrev=0}}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
+      - name: Extract tag name
+        id: tag
+        uses: actions/github-script@0.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            return context.payload.ref.replace(/\/refs\/tags\//, '');
+      - name: Echo
+        run: echo ${{ steps.tag.outputs.result }}     
 
            
       # - name: Get current date
