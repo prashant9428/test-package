@@ -30,9 +30,9 @@ jobs:
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-      - name: "get latest tag"
-        id: "tag"
-        run: "echo ${{git tag | sort -V | tail -1}}"      
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}   
            
       # - name: Get current date
       #   id: date
