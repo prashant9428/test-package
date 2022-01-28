@@ -25,11 +25,14 @@ jobs:
         if: github.ref == 'refs/heads/master'
         uses: actions/checkout@v2
         with:
-          ref: 'master'          
+          ref: 'master'     
       - name: create a release
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}       
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+      - name: "get latest tag"
+        id: "tag"
+        run: "echo ${{git tag | sort -V | tail -1}}"      
            
       # - name: Get current date
       #   id: date
