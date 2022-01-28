@@ -9,13 +9,7 @@ const TestMe = function(name){
 const getUser = function(name){
     console.log("name of the user1") 
     console.log("new user added ")
-    console.log("new user added   ")
-    console.log("new user 2")
-    console.log("new user 3")
-    console.log("new user 5")
-    console.log("new user 6")
-    console.log("new user 7")
-    console.log("new user 8")
+  
 }
 
 
