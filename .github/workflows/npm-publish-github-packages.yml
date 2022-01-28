@@ -35,8 +35,8 @@ jobs:
       - name: Get the version
         id: get_version
         run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
-      - name: Echo
-        run: echo ${{git describe --tags --abbrev=0}}   
+      # - name: Echo
+      #   run: echo ${{git describe --tags --abbrev=0}}   
 
            
       # - name: Get current date
