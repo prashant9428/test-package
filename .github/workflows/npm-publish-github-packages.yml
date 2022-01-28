@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: branch name
-        run: echo ${{toJson(github)}}
+        run: echo ${{ toJson(github) }}
       - name: Checkout branch "development"
         if: github.ref == 'refs/heads/development'
         uses: actions/checkout@v2
