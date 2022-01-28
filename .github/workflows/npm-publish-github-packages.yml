@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: branch name
-        run: echo github
+        run: echo ${{github}}
       - name: Checkout branch "development"
         if: github.ref == 'refs/heads/development'
         uses: actions/checkout@v2
