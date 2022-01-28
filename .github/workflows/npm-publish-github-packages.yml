@@ -33,7 +33,7 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       - name: Set output
-        run: echo "GIT_TAG=`echo $(git describe --tags --abbrev=0)`"
+        run: echo "${{git describe --tags --abbrev=0}}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
 
