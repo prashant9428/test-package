@@ -20,13 +20,13 @@ jobs:
         run: echo ${{github}}
       - name: Checkout branch "development"
         if: github.ref == 'refs/heads/development'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.2.0
         with:
           ref: 'development'
           detch-depth: 0
       - name: Checkout branch "master"
         if: github.ref == 'refs/heads/master'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.2.0
         with:
           ref: 'master' 
           detch-depth: 0       
