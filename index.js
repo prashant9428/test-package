@@ -13,6 +13,7 @@ const getUser = function(name){
     console.log("new user 2")
     console.log("new user 3")
     console.log("new user 5")
+    console.log("new user 6")
 }
 
 
