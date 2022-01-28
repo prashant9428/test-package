@@ -43,7 +43,7 @@ jobs:
           fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        - name: 'set env'
+      - name: 'set env'
         run: echo ${{tag}}
 
 
