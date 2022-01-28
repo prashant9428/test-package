@@ -36,15 +36,15 @@ jobs:
         with:
           ref: 'master'
           fetch-depth: 0 # Required due to the weg Git
-      - name: 'Get Tag'
-        id: tag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+      # - name: 'Get Tag'
+      #   id: tag
+      #   uses: "WyriHaximus/github-action-get-previous-tag@v1"
+      #   with:
+      #     fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+      - name: Set env
+        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      - name: 'set env'
-        run: echo tag
 
 
 
