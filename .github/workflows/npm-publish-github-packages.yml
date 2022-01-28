@@ -44,7 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       - name: 'set env'
-        run: echo ${{tag}}
+        run: echo tag
 
 
 
