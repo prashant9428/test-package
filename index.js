@@ -14,6 +14,8 @@ const getUser = function(name){
     console.log("new user 3")
     console.log("new user 5")
     console.log("new user 6")
+    console.log("new user 7")
+    console.log("new user 8")
 }
 
 
