@@ -42,7 +42,9 @@ jobs:
       #   with:
       #     fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
       - name: Set env
-        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
+        run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+      - name: Test
+        run: echo $GITHUB_SHA_SHORT
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
