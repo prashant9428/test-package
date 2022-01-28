@@ -16,9 +16,20 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.2.0
+      - name: branch name
+        run: echo ${{github}}
+      - name: Checkout branch "development"
+        if: github.ref == 'refs/heads/development'
+        uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # Required due to the weg Git works, without it this action won't be able to find any or the correct tags
+          ref: 'development'
+          detch-depth: 0
+      - name: Checkout branch "master"
+        if: github.ref == 'refs/heads/master'
+        uses: actions/checkout@v2
+        with:
+          ref: 'master' 
+          detch-depth: 0       
       - name: 'Get Previous tag'
         id: previoustag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
