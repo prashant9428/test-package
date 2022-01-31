@@ -52,7 +52,7 @@ jobs:
       - name: Test
         run: echo ${{ steps.tag.outputs.tag }}
       - name: 'run id'
-        run: echo ${{github.run_id}
+        run: echo ${{github.run_id}}
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
