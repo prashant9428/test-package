@@ -51,8 +51,6 @@ jobs:
           fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
       - name: tag
         run: echo ${{ steps.tag.outputs.tag }}
-      - name: 'run id'
-        run: echo ${{github.run_id}}
       - name: 'job id'
         run: echo ${{github.run_id}}
       - name: 'commit id'
