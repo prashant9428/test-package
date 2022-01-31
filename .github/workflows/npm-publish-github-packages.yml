@@ -56,7 +56,10 @@ jobs:
       - name: 'commit id'
         run: echo ${{github.event.commits[0].id}}
       - name: 'env'
-        run: echo "${{ secrets.QA.TAG}}"               
+        run: echo "${{ env}}" 
+      - name: 'env2'
+        run: echo "${{ toJson(secrets)}}"                  
+                  
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
