@@ -54,7 +54,9 @@ jobs:
       - name: 'job id'
         run: echo ${{github.run_id}}
       - name: 'commit id'
-        run: echo ${{github.event.commits[0].id}}                      
+        run: echo ${{github.event.commits[0].id}}
+      - name: 'env'
+        run: echo env                  
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
