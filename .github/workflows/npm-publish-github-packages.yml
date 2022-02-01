@@ -54,13 +54,14 @@ jobs:
       - name: 'job id'
         run: echo ${{github.run_id}}
       - name: 'commit id'
-        run: echo ${{github.event.commits[0].id}}      
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        run: echo ${{github.event.commits[0].id}}   
       - name: docker build
         run: |
           ls -la
-          docker build . -t test-package -f dockerFile --build-arg github_tag=${{step.tag.output.tag}}
+          docker build . -t test-package -f dockerFile --build-arg github_tag=${{steps.tag.output.tag}}   
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
 
 
       # - name: Log in to Docker Hub
