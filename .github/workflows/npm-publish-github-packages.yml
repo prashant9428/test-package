@@ -55,10 +55,9 @@ jobs:
         run: echo ${{github.run_id}}
       - name: 'commit id'
         run: echo ${{github.event.commits[0].id}}
-      # - name: 'env'
-      #   run: env
-      - name: 'env2'
-        run: echo "${{ toJson(secrets)}}"                  
+      - name: 'build docker'
+        run: |
+        docker build --build-arg release_tag=${{ steps.tag.outputs.tag }}             
                   
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
