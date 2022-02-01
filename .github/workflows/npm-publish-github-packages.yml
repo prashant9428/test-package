@@ -57,7 +57,7 @@ jobs:
         run: echo ${{github.event.commits[0].id}}
       - name: 'build docker'
         run: |
-        docker build --build-arg release_tag=${{ steps.tag.outputs.tag }}             
+          docker build --build-arg release_tag=${{ steps.tag.outputs.tag }}             
                   
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
