@@ -69,6 +69,7 @@ jobs:
           ref: 'master' 
       - name: docker build
         run: |
+          ls -la
           docker build . -t test-package -f Dockerfile
 
       # - name: Log in to Docker Hub
