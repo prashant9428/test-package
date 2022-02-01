@@ -10,6 +10,10 @@ COPY package*.json ./
 # COPY .env ./
 # COPY .npmrc ./
 
+ARG tag=0 
+
+ENV github_tag =${tag}
+
 #RUN npm install -g yarn
 #RUN yarn
 RUN npm install
