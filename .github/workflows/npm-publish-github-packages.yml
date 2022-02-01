@@ -66,10 +66,10 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
         with:
-          ref: 'qa' 
+          ref: 'master' 
       - name: docker build
         run: |
-          docker build --build-arg github-tag=v10.0.8
+          docker build -t pathak4477/test-package
 
       # - name: Log in to Docker Hub
       #   uses: docker/login-action@v1
