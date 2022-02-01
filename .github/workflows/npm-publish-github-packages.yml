@@ -79,7 +79,7 @@ jobs:
           push: true
           tags: docker_hub_name/image_name:latest
           secrets: |
-            "GITHUB_TAG=${{ V10.2.4 }}"
+            "GITHUB_TAG=V10.2.4"
 
 
 
