@@ -57,8 +57,11 @@ jobs:
         run: echo ${{github.event.commits[0].id}}
       - name: 'build docker'
         uses: docker/build-push-action@v2
-        run: |
-          docker build --build-arg release_tag=${{ steps.tag.outputs.tag }}             
+        with:
+          push: true
+          tags: docker_hub_name/image_name:latest
+          secrets: |
+            "GITHUB_TAG=${{ steps.tag.outputs.tag }}"         
                   
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
