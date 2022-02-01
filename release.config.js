@@ -1,5 +1,5 @@
 module.exports  = {
-    branches: ["master",'development'],
+    branches: ["master",'development','qa'],
     repositoryUrl:"https://github.com/prashant9428/test-package",
     plugins:[
         '@semantic-release/commit-analyzer',
