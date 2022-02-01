@@ -50,7 +50,10 @@ jobs:
         with:
           fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
       - name: tag
-        run: echo ${{ steps.tag.outputs.tag }}
+        run: |
+        ${{ env.github_tag=steps.tag.outputs.tag }}
+        echo ${{env.github_tag}}
+        echo ${{teps.tag.outputs.tag }}
       - name: 'job id'
         run: echo ${{github.run_id}}
       - name: 'commit id'
@@ -69,8 +72,9 @@ jobs:
           ref: 'master' 
       - name: docker build
         run: |
+          echo ${{env.github_tag}}
           ls -la
-          docker build . -t test-package -f dockerFile --build-arg github_tag=v10.5.3 
+          docker build . -t test-package -f dockerFile --build-arg github_tag=${{env.github_tag}}
 
       # - name: Log in to Docker Hub
       #   uses: docker/login-action@v1
