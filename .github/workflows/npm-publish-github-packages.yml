@@ -58,12 +58,12 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
-push_to_registry:
+  push_to_registry:
 
     needs: getTag
     runs-on: ubuntu-latest
     steps:
-    
+
       - name: Check out the repo
         uses: actions/checkout@v2
 
