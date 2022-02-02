@@ -81,27 +81,20 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
-      - name: Render Amazon ECS task definition
-        id: definition
+      - name: Download current ECS task definition
+        run: aws ecs describe-task-definition --task-definition stage-web --query taskDefinition > task-definition.json
+      - name: Render new ECS task definition
+        id: render-task-definition
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task-definition.json
-          container-name: test-package
-          image: ${{ steps.build-image.outputs.image }}
-          environment-variables: "LOG_LEVEL=info"
-
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: ${{ steps.definition.outputs.task-definition }}
-          container-name: test-package
+          container-name: stage-web
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          task-definition: ${{ steps.render-task-definition.outputs.task-definition }}
           service: test-package
           cluster: ecs-test-deploy
           wait-for-service-stability: true
