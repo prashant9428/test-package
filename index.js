@@ -1,21 +1,11 @@
-const sayHello = function (name) {
-    console.log("Hello " + name + "!!")
-    console.log("test")
-}
-const TestMe = function(name){
-    console.log("name of the user") 
-}
+const express = require("express")
+require('dotenv').config()
+const app = express()
 
-const getUser = function(name){
-    console.log("name of the user1") 
-    console.log("new user added ")
-    console.log("new user added ")
-    console.log("new user added 3 ") 
-    console.log("new user added 4") 
-    console.log("new user added 5") 
-}
+app.get("/",(req,res)=>{
+    res.send("working")
+})
 
-
-module.exports = {
-    sayHello
-}
+app.listen(process.env.PORT,()=>{
+    console.log("server is running on port ",process.env.PORT)
+})

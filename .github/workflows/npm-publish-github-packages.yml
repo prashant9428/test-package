@@ -58,7 +58,9 @@ jobs:
       - name: docker build
         run: |
           ls -la
-          docker build . -t test-package -f dockerFile --build-arg tag=${{steps.tag.output.tag}}   
+          docker build . -t test-package -f dockerFile --build-arg tag=${{steps.tag.output.tag}}
+          docker tag test-package:latest 964412869874.dkr.ecr.us-east-1.amazonaws.com/test-package:latest
+          docker push 964412869874.dkr.ecr.us-east-1.amazonaws.com/test-package:latest
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 

@@ -1,18 +1,18 @@
 FROM node:14.3
 
 # Create app directory
-WORKDIR /usr/src/app
+WORKDIR /usr/app
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
-# COPY .env ./
+COPY .env ./
 # COPY .npmrc ./
 
 ARG tag=0 
 
-ENV github_tag =${tag}
+ENV github_tag=${tag}
 
 #RUN npm install -g yarn
 #RUN yarn
@@ -25,4 +25,4 @@ COPY . .
 
 #port
 EXPOSE 3000
-CMD [ "node", "index.js" ]
+CMD [ "npm","run","start" ]

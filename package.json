@@ -9,6 +9,7 @@
   "scripts": {
     "commit": "cz",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
     "gateway": "npx @byjus-orders/nucleus-gateway"
   },
   "repository": {
@@ -25,6 +26,8 @@
   },
   "homepage": "https://github.com/prashant9428/test-package#readme",
   "dependencies": {
+    "dotenv": "^15.0.0",
+    "express": "^4.17.2",
     "nodemon": "^2.0.15"
   },
   "devDependencies": {
