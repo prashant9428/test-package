@@ -26,8 +26,7 @@
   },
   "homepage": "https://github.com/prashant9428/test-package#readme",
   "dependencies": {
-    "express": "^4.17.2",
-    "nodemon": "^2.0.15"
+    "express": "^4.17.2"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",
