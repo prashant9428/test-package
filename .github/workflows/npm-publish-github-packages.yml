@@ -58,7 +58,6 @@ jobs:
       - name: docker build
         run: |
           ls -la
-          aws ecr get-login --no-include-email --region ap-south-1
           docker build . -t test-package -f dockerFile --build-arg tag=${{steps.tag.output.tag}}
           docker tag test-package:latest 964412869874.dkr.ecr.us-east-1.amazonaws.com/test-package:latest
           docker push 964412869874.dkr.ecr.us-east-1.amazonaws.com/test-package:latest
