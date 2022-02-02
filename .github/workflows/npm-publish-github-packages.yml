@@ -82,7 +82,7 @@ jobs:
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
       - name: Download current ECS task definition
-        run: aws ecs describe-task-definition --task-definition stage-web --query taskDefinition > task-definition.json
+        run: aws ecs describe-task-definition --task-definition test-package --query taskDefinition > task-definition.json
       - name: Render new ECS task definition
         id: render-task-definition
         uses: aws-actions/amazon-ecs-render-task-definition@v1
