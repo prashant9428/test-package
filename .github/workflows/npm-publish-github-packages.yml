@@ -71,7 +71,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: test-package
-          IMAGE_TAG: latest
+          IMAGE_TAG: latest-image
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         run: |
           echo $ECR_REGISTRY
