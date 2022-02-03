@@ -17,18 +17,16 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      # - name: log github
-      #   run: echo "${{toJson(github)}}"
-      # - name: Checkout branch "development"
-      #   if: github.ref == 'refs/heads/development'
-      #   uses: actions/checkout@v2
-      #   with:
-      #     ref: 'development'
-      # - name: Checkout branch "master"
-      #   if: github.ref == 'refs/heads/master'
-      #   uses: actions/checkout@v2
-      #   with:
-      #     ref: 'master'     
+      - name: Checkout branch "development"
+        if: github.ref == 'refs/heads/development'
+        uses: actions/checkout@v2
+        with:
+          ref: 'development'
+      - name: Checkout branch "master"
+        if: github.ref == 'refs/heads/master'
+        uses: actions/checkout@v2
+        with:
+          ref: 'master'     
       - name: Checkout branch 
         uses: actions/checkout@v2
         with:
@@ -86,6 +84,7 @@ jobs:
         run: |
           aws ecs describe-task-definition --task-definition test-package --query taskDefinition > task-definition.json
           cat task-definition.json
+     
       - name: Render new ECS task definition
         id: render-task-definition
         uses: aws-actions/amazon-ecs-render-task-definition@v1
