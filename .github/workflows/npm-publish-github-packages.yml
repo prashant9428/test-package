@@ -17,23 +17,22 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: log github
-        run: echo "${{toJson(github)}}"
-      - name: Checkout branch "development"
-        if: github.ref == 'refs/heads/development'
+      # - name: log github
+      #   run: echo "${{toJson(github)}}"
+      # - name: Checkout branch "development"
+      #   if: github.ref == 'refs/heads/development'
+      #   uses: actions/checkout@v2
+      #   with:
+      #     ref: 'development'
+      # - name: Checkout branch "master"
+      #   if: github.ref == 'refs/heads/master'
+      #   uses: actions/checkout@v2
+      #   with:
+      #     ref: 'master'     
+      - name: Checkout branch 
         uses: actions/checkout@v2
         with:
-          ref: 'development'
-      - name: Checkout branch "master"
-        if: github.ref == 'refs/heads/master'
-        uses: actions/checkout@v2
-        with:
-          ref: 'master'     
-      - name: Checkout branch "QA"
-        if: github.ref == 'refs/heads/qa'
-        uses: actions/checkout@v2
-        with:
-          ref: 'qa' 
+          ref: github.ref_name
       - name: create a release
         run: npx semantic-release
         env:
