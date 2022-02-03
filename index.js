@@ -1,20 +1,27 @@
-const sayHello = function (name) {
-    console.log("Hello " + name + "!!")
-    console.log("test")
-}
-const TestMe = function(name){
-    console.log("name of the user") 
-}
+const express = require("express")
+const app = express()
+const {getReleaseBody} = require('./utils')
 
-const getUser = function(name){
-    console.log("name of the user1") 
-    console.log("new user added ")
-    console.log("new user added ")
-    console.log("new user added 3 ") 
-    console.log("new user added 4") 
-}
+app.get("/",async (req,res)=>{
+
+    try {
+        console.log("tag",process.env.github_tag)
+        if(process.env.github_tag){
+            const data = await getReleaseBody(process.env.github_tag)
+            console.log("data",data)
+            res.status(400).json(data);
+        }else{
+            res.status(400).json({
+                status:"Tag not found"
+            });
+        } 
+    } catch (error) {
+        res.status(404).json(error);
+    }
 
 
-module.exports = {
-    sayHello
-}
+})
+
+app.listen(3000,()=>{
+    console.log("server is running on port 3000")
+})
