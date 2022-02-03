@@ -1,11 +1,11 @@
 const rp = require('request-promise');
 
 module.exports = {
-    getReleaseBody :async ()=>{
+    getReleaseBody :async (tag)=>{
         return new Promise(function (resolve,reject){
 
             var options = {
-                uri: 'https://api.github.com/repos/prashant9428/test-package/releases/tags/v1.0.59',
+                uri: `https://api.github.com/repos/prashant9428/test-package/releases/tags/${tag}`,
                 headers: {
                     'Accept': 'application/vnd.github.v3+json',
                     'user-agent': 'node.js'
