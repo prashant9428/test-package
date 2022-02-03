@@ -7,7 +7,7 @@ app.get("/",async (req,res)=>{
     try {
         console.log("tag",process.env.github_tag)
         if(process.env.github_tag){
-            const data = await getReleaseBody()
+            const data = await getReleaseBody(process.env.github_tag)
             console.log("data",data)
             res.status(400).json(data);
         }else{

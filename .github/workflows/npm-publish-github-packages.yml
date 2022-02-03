@@ -98,7 +98,7 @@ jobs:
         with:
           task-definition: ${{ steps.render-task-definition.outputs.task-definition }}
           service: test-package
-          cluster: ecs-test-deploy
+          cluster: ecs-sematic-deploy
           wait-for-service-stability: true
       # - name: docker build
       #   run: |
