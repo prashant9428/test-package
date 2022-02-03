@@ -1,8 +1,25 @@
 const express = require("express")
 const app = express()
+const {getReleaseBody} = require('./utils')
 
-app.get("/",(req,res)=>{
-    res.send(`working ${process.env.github_tag}`)
+app.get("/",async (req,res)=>{
+
+    try {
+        console.log("tag",process.env.github_tag)
+        if(process.env.github_tag){
+            const data = await getReleaseBody()
+            console.log("data",data)
+            res.status(400).json(data);
+        }else{
+            res.status(400).json({
+                status:"Tag not found"
+            });
+        } 
+    } catch (error) {
+        res.status(404).json(error);
+    }
+
+
 })
 
 app.listen(3000,()=>{

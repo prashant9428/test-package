@@ -26,7 +26,9 @@
   },
   "homepage": "https://github.com/prashant9428/test-package#readme",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",
