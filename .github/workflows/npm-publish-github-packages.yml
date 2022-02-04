@@ -17,8 +17,6 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: github json
-        run: echo "${{ toJson(github)}}""
       - name: Checkout branch "development"
         if: github.ref == 'refs/heads/development'
         uses: actions/checkout@v2
@@ -46,6 +44,11 @@ jobs:
         with:
           ref: 'master'
           fetch-depth: 0 # Required due to the weg Git
+      - name: Create Release
+        id: tag_data
+        uses: ericcornelissen/git-tag-annotation-action@v1
+      - name: The output
+        run: echo ${{ steps.tag_data.outputs.git-tag-annotation }}          
       - name: 'tag plugin'
         id: tag
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
