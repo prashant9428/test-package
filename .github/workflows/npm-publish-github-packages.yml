@@ -10,47 +10,68 @@ on:
       - master
       - staged
     tags:
-      - 'v*.*.*'
+      - '*'
 
 jobs:
   build:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: github json
-        run: echo "${{ toJson(github)}}""
+
       - name: Checkout branch "development"
         if: github.ref == 'refs/heads/development'
         uses: actions/checkout@v2
         with:
           ref: 'development'
+          fetch-depth: 0
       - name: Checkout branch "master"
         if: github.ref == 'refs/heads/master'
         uses: actions/checkout@v2
         with:
-          ref: 'master'     
+          ref: 'master'
+          fetch-depth: 0
       - name: Checkout branch "staged"
         if: github.ref == 'refs/heads/staged'
         uses: actions/checkout@v2
         with:
           ref: staged
+          fetch-depth: 0
       - name: create a release
-        run: npx semantic-release
+        run: |
+          npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+
+
   getTag:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.2.0
+      - name: Checkout branch "development"
+        if: github.ref == 'refs/heads/development'
+        uses: actions/checkout@v2
+        with:
+          ref: 'development'
+          fetch-depth: 0
+      - name: Checkout branch "master"
+        if: github.ref == 'refs/heads/master'
+        uses: actions/checkout@v2
         with:
           ref: 'master'
-          fetch-depth: 0 # Required due to the weg Git
+          fetch-depth: 0
+      - name: Checkout branch "staged"
+        if: github.ref == 'refs/heads/staged'
+        uses: actions/checkout@v2
+        with:
+          ref: staged
+          fetch-depth: 0
       - name: 'tag plugin'
         id: tag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+        run: |
+          echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
+        # uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        # with:
+        #   fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
       - name: tag
         run: echo ${{steps.tag.outputs.tag }}
       - name: 'job id'
