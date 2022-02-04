@@ -33,8 +33,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: staged
-      - name: create a release
-        run: npx semantic-release
+      # - name: create a release
+      #   run: npx semantic-release
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       - name: Set output
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
@@ -42,8 +44,7 @@ jobs:
         run: |
           echo ${{ steps.vars.outputs.tag }}
 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+
   getTag:
     needs: build
     runs-on: ubuntu-latest
