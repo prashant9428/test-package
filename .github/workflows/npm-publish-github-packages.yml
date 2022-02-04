@@ -8,7 +8,7 @@ on:
     branches:
       - development
       - master
-      - qa
+      - staged
     tags:
       - 'v*.*.*'
 
@@ -27,11 +27,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: 'master'     
-      - name: Checkout branch "QA"
+      - name: Checkout branch "staged"
         if: github.ref == 'refs/heads/qa'
         uses: actions/checkout@v2
         with:
-          ref: github.ref_name
+          ref: staged
       - name: create a release
         run: npx semantic-release
         env:

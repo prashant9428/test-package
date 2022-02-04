@@ -22,6 +22,13 @@ app.get("/",async (req,res)=>{
 
 })
 
+app,get("/release",async (req,res)=>{
+    console.log("user added")
+    res.status(400).json({
+        status:"working"
+    });
+})
+
 app.listen(3000,()=>{
     console.log("server is running on port 3000")
 })
