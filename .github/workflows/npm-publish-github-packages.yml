@@ -10,7 +10,7 @@ on:
       - master
       - staged
     tags:
-      - 'v*.*.*'
+      - '*'
 
 jobs:
   build:
