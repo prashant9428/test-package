@@ -23,8 +23,6 @@ app.get("/",async (req,res)=>{
 })
 
 app,get("/release",async (req,res)=>{
-    console.log("user added")
-    console.log("user added")
     res.status(400).json({
         status:"working"
     });
