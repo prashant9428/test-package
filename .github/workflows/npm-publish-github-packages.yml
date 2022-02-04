@@ -45,9 +45,10 @@ jobs:
         id: tag
         run: |
           git describe --tags
+          echo "::set-output name=tag:: git describe --tags"
       - name: Check output
         run: |
-          echo ${{ steps.tag.outputs.subject }}
+          echo ${{ steps.tag.outputs.tag }}
 
 
   getTag:
