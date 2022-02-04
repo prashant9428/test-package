@@ -44,7 +44,7 @@ jobs:
       - name: "Extract data from tag: version, message, body"
         id: tag
         run: |
-          echo "::set-output name=tag::$(git describe --tags)"
+          echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
       - name: Check output
         run: |
           echo ${{ steps.tag.outputs.tag }}
