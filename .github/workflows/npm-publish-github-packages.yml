@@ -37,7 +37,8 @@ jobs:
           ref: staged
           fetch-depth: 0
       - name: create a release
-        run: npx semantic-release
+        run: |
+          npx semantic-release -d --quiet --show-version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       - name: github log

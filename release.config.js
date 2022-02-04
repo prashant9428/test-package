@@ -5,10 +5,5 @@ module.exports  = {
         '@semantic-release/commit-analyzer',
         '@semantic-release/release-notes-generator',
         '@semantic-release/github',
-        "@semantic-release/npm",
-        {
-          "path": "@semantic-release/exec",
-          "cmd": "my-script ${nextRelease.version}",
-        },
     ]
 }
