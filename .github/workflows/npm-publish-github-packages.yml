@@ -38,7 +38,7 @@ jobs:
           fetch-depth: 0
       - name: create a release
         run: |
-          npx semantic-release -d --quiet --show-version
+          npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       - name: github log
