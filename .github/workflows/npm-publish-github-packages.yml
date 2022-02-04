@@ -47,8 +47,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: object json
-        run: echo "${{github.event.after}}"
       - name: Checkout branch "development"
         if: github.ref == 'refs/heads/development'
         uses: actions/checkout@v2
@@ -67,10 +65,12 @@ jobs:
         with:
           ref: staged
           fetch-depth: 0
+      - name: object json
+        run: echo "${{toJson(github)}}"
       - name: 'tag plugin'
         id: tag
         run: |
-          echo "::set-output name=tag::$(git tag --contains $(github.after))"
+          echo "::set-output name=tag::$(git tag --contains ${{github.event.commits[0].id}})"
         # uses: "WyriHaximus/github-action-get-previous-tag@v1"
         # with:
         #   fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
