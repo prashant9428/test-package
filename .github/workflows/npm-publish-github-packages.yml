@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: object json
-        run: echo "${{github.event.after}}"
+        run: echo "${{toJson(github.event)}"
       - name: Checkout branch "development"
         if: github.ref == 'refs/heads/development'
         uses: actions/checkout@v2
