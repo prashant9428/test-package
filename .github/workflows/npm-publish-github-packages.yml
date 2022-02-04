@@ -32,6 +32,7 @@ jobs:
         if: github.ref == 'refs/heads/staged'
         uses: actions/checkout@v2
         with:
+          fetch-depth: 0
           ref: staged
       # - name: create a release
       #   run: npx semantic-release
