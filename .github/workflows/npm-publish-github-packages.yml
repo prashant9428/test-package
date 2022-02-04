@@ -46,6 +46,8 @@ jobs:
         run: |
           git fetch --tags --force # Retrieve annotated tags. THIS TRICK REALLY HELPS
           echo ::set-output name=subject::$(git for-each-ref $GITHUB_REF --format='%(contents:subject)')
+          echo "${{ github.ref }}"
+          echo "${{ steps.tag.outputs.subject }}"
       - name: Check output
         run: |
           echo ${{ steps.vars.outputs.tag }}
