@@ -48,7 +48,7 @@ jobs:
           echo ::set-output name=subject::$(git for-each-ref $GITHUB_REF --format='%(contents:subject)')
       - name: Check output
         run: |
-          echo ${{ steps.tag.outputs.tag }}
+          echo ${{ steps.tag.outputs.subject }}
 
 
   getTag:
