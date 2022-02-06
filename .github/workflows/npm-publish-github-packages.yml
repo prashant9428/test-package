@@ -74,7 +74,7 @@ jobs:
       - name: 'attach head if not found'
   #      if: ${{ (steps.head.outputs.head != '* development') && (steps.head.outputs.head != '* staged') && (steps.head.outputs.head != '* master') }}  
         run: |
-          git tag ${git tag --contains ${github.event.commits[github.event.commits.length-2].id} --sort=-refname|head -n 1} $github.sha
+          git tag ${{git tag --contains ${{github.event.commits[github.event.commits.length-2].id}} --sort=-refname|head -n 1}} $github.sha
         
       - name: get tag
         id: tag
