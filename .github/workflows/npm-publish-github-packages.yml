@@ -81,8 +81,8 @@ jobs:
         id: tag
         if: ${{ (steps.tag.outputs.head != 'development') && (steps.tag.outputs.head != 'staged') && (steps.tag.outputs.head != 'master') }}  
         run: |
-          "$(git tag ${{git tag --contains ${{github.event.commits[github.event.commits.length - 2].id}} --sort=-refname|head -n 1 }} ${{github.sha}})"
-          "$(git push origin ${{git tag --contains ${{github.event.commits[github.event.commits.length - 2].id}} --sort=-refname|head -n 1 }})"
+          echo "$(git tag ${{git tag --contains ${{github.event.commits[github.event.commits.length - 2].id}} --sort=-refname|head -n 1 }} ${{github.sha}})"
+          echo "$(git push origin ${{git tag --contains ${{github.event.commits[github.event.commits.length - 2].id}} --sort=-refname|head -n 1 }})"
           echo "::set-output name=tag::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
         
         # uses: "WyriHaximus/github-action-get-previous-tag@v1"
