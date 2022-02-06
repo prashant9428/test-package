@@ -66,11 +66,15 @@ jobs:
           ref: staged
           fetch-depth: 0
       - name: object json
-        run: echo "${{toJson(github.event)}}"
+        run: echo "${{toJson(github)}}"
       - name: 'tag plugin'
         id: tag
+        env:
+          development: 2
+          staged: 3
+          production: 4
         run: |
-          echo "::set-output name=tag::$(git tag --contains ${{github.event.commits[github.event.commits.length-2].id}} --sort=-refname|head -n 1)"
+          echo "::set-output name=tag::$(git tag --contains ${{github.event.commits[github.event.commits.length-].id}} --sort=-refname|head -n 1)"
         # uses: "WyriHaximus/github-action-get-previous-tag@v1"
         # with:
         #   fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
