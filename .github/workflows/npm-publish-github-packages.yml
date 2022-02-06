@@ -65,7 +65,7 @@ jobs:
         with:
           ref: staged
           fetch-depth: 0
-          
+
       - name: checkHead
         id: head
         run: |
@@ -74,9 +74,7 @@ jobs:
       - name: 'attach head if not found'
         if: ${{ (steps.head.outputs.head != 'development') && (steps.head.outputs.head != 'staged') && (steps.head.outputs.head != 'master') }}  
         run: |
-          $(git tag ${{git tag --contains ${{github.event.commits[github.event.commits.length - 2].id}} --sort=-refname|head -n 1 }} ${{github.sha}})
-          $(git push origin ${{git tag --contains ${{github.event.commits[github.event.commits.length - 2].id}} --sort=-refname|head -n 1 }})
-          echo "::set-output name=tag::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
+          git branch --contains 74f16cae69719c91f2bcb9a92b1e835753d96bff
         
       - name: get tag
         id: tag
