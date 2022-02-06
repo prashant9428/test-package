@@ -71,6 +71,10 @@ jobs:
         run: |
           echo "::set-output name=head::$(git branch --contains ${{github.sha}})"
 
+      - name: checkHead output
+        run: |
+          echo "${{steps.head.outputs.head}}"
+
       - name: second last index tag
         id: commit-tag
         run: |
