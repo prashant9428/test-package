@@ -72,7 +72,7 @@ jobs:
           echo "::set-output name=head::$(git branch --contains ${{github.sha}})"
     
       - name: 'attach head if not found'
-        if: ${{ (steps.head.outputs.head != 'development') && (steps.head.outputs.head != 'staged') && (steps.head.outputs.head != 'master') }}  
+        if: ${{ (steps.head.outputs.head != '* development') && (steps.head.outputs.head != '* staged') && (steps.head.outputs.head != '* master') }}  
         run: |
           git branch --contains 74f16cae69719c91f2bcb9a92b1e835753d96bff
         
