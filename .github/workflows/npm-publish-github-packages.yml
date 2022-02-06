@@ -65,24 +65,24 @@ jobs:
         with:
           ref: staged
           fetch-depth: 0
+          
       - name: checkHead
         id: head
         run: |
           echo "::set-output name=head::$(git branch --contains ${{github.sha}})"
-      - name: 'head found'
-        id: tag
-        if: ${{ (steps.head.outputs.head == 'development') || (steps.head.outputs.head == 'staged') || (steps.head.outputs.head == 'master') }}  
-        run: |
-          echo "::set-output name=tag::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
-      - name: 'head not found'
-        id: tag
+    
+      - name: 'attach head if not found'
         if: ${{ (steps.head.outputs.head != 'development') && (steps.head.outputs.head != 'staged') && (steps.head.outputs.head != 'master') }}  
         run: |
+          $(git tag ${{git tag --contains ${{github.event.commits[github.event.commits.length - 2].id}} --sort=-refname|head -n 1 }} ${{github.sha}})
+          $(git push origin ${{git tag --contains ${{github.event.commits[github.event.commits.length - 2].id}} --sort=-refname|head -n 1 }})
           echo "::set-output name=tag::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
         
-        # uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        # with:
-        #   fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+      - name: get tag
+        id: tag
+        run: |
+          echo "::set-output name=tag::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
+
       - name: tag
         run: echo ${{steps.tag.outputs.tag }}
       - name: 'job id'
