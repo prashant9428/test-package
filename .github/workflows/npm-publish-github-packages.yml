@@ -65,19 +65,28 @@ jobs:
         with:
           ref: staged
           fetch-depth: 0
-      - name: object json
-        run: echo "${{toJson(github)}}"
-      - name: 'tag plugin'
-        id: tag
-        env:
-          development: 2
-          staged: 3
-          production: 4
+
+      - name: checkHead
+        id: head
         run: |
-          echo "::set-output name=tag::$(git tag --contains ${{github.event.commits[github.event.commits.length-].id}} --sort=-refname|head -n 1)"
-        # uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        # with:
-        #   fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+          echo "::set-output name=head::$(git branch --contains ${{github.sha}})"
+
+      - name: second last index tag
+        id: commit-tag
+        run: |
+            echo "::set-output name=tag::$(git tag --contains ${{github.event.commits[github.event.commits.length-2].id}} --sort=-refname|head -n 1)"
+
+      - name: 'attach head if not found'
+        if: ${{ (steps.head.outputs.head != '* development') && (steps.head.outputs.head != '* staged') && (steps.head.outputs.head != '* master') }}  
+        run: |
+          git tag ${{steps.commit-tag.outputs.tag}} ${{github.sha}}
+          git push origin ${{steps.commit-tag.outputs.tag}}
+        
+      - name: get tag
+        id: tag
+        run: |
+          echo "::set-output name=tag::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
+
       - name: tag
         run: echo ${{steps.tag.outputs.tag }}
       - name: 'job id'
