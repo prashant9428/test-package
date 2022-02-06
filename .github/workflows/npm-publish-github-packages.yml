@@ -65,8 +65,8 @@ jobs:
         with:
           ref: staged
           fetch-depth: 0
-      # - name: object json
-      #   run: echo "${{toJson(github.event.commits)}}"
+      - name: object json
+        run: echo "${{toJson(github.event)}}"
       - name: 'tag plugin'
         id: tag
         run: |
