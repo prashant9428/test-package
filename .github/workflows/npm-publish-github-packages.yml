@@ -69,8 +69,8 @@ jobs:
       - name: checkHead
         id: head
         run: |
-          echo "$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
-          echo "::set-output name=head::$(git branch --contains ${{github.sha}})"
+          echo "::set-output name=head::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
+#          echo "::set-output name=head::$(git branch --contains ${{github.sha}})"
 
       - name: checkHead output
         run: |
@@ -82,7 +82,7 @@ jobs:
             echo "::set-output name=tag::$(git tag --contains ${{github.event.commits[github.event.commits.length-2].id}} --sort=-refname|head -n 1)"
 
       - name: 'attach head if not found'
-        if: ${{ (steps.head.outputs.head != '* development') && (steps.head.outputs.head != '* staged') && (steps.head.outputs.head != '* master') }}  
+        if: ${{ (steps.head.outputs.head == '') || (steps.head.outputs.head == ' ') }}  
         run: |
           git tag ${{steps.commit-tag.outputs.tag}} ${{github.sha}}
           git push origin ${{steps.commit-tag.outputs.tag}}
