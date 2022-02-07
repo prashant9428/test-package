@@ -69,6 +69,7 @@ jobs:
       - name: checkHead
         id: head
         run: |
+          echo "$(git tag --contains ${{github.event.commits[github.event.commits.length-2].id}} --sort=-refname|head -n 1)"
           echo "::set-output name=head::$(git branch --contains ${{github.sha}})"
 
       - name: checkHead output
