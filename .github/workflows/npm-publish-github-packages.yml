@@ -12,6 +12,11 @@ on:
     tags:
       - '*'
 
+env:
+  ## Sets environment variable
+  master: 3    
+  tag: 0
+
 jobs:
   build:
     name: Release
@@ -66,34 +71,39 @@ jobs:
           ref: staged
           fetch-depth: 0
 
-      - name: checkHead
-        id: head
-        run: |
-          echo "::set-output name=head::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
-#          echo "::set-output name=head::$(git branch --contains ${{github.sha}})"
+#       - name: checkHead
+#         id: head
+#         run: |
+#           echo "::set-output name=head::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
+# #          echo "::set-output name=head::$(git branch --contains ${{github.sha}})"
 
-      - name: checkHead output
-        run: |
-          echo "${{steps.head.outputs.head}}"
+#       - name: checkHead output
+#         run: |
+#           echo "${{steps.head.outputs.head}}"
 
-      - name: second last index tag
-        id: commit-tag
-        run: |
-            echo "::set-output name=tag::$(git tag --contains ${{github.event.commits[github.event.commits.length-2].id}} --sort=-refname|head -n 1)"
+      # - name: second last index tag
+      #   id: commit-tag
+      #   run: |
+      #       echo "::set-output name=tag::$(git tag --contains ${{github.event.commits[github.event.commits.length-2].id}} --sort=-refname|head -n 1)"
 
-      - name: 'attach head if not found'
-        if: ${{ (steps.head.outputs.head == '') || (steps.head.outputs.head == ' ') }}  
-        run: |
-          git tag ${{steps.commit-tag.outputs.tag}} ${{github.sha}}
-          git push origin ${{steps.commit-tag.outputs.tag}}
+      # - name: 'attach head if not found'
+      #   if: ${{ (steps.head.outputs.head == '') || (steps.head.outputs.head == ' ') }}  
+      #   run: |
+      #     git tag ${{steps.commit-tag.outputs.tag}} ${{github.sha}}
+      #     git push origin ${{steps.commit-tag.outputs.tag}}
         
-      - name: get tag
-        id: tag
+      - name: get tag from master
+        if: github.ref == 'refs/heads/master'
         run: |
-          echo "::set-output name=tag::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
+          echo "tag=$(git tag --contains ${{github.event.commits[github.event.commits.length-3].id}} --sort=-refname|head -n 1)" >> $GITHUB_ENV
+     
+      - name: get tag from others
+        if: github.ref != 'refs/heads/master'
+        run: |
+          echo "tag=$(git tag --contains ${{github.event.commits[github.event.commits.length-2].id}} --sort=-refname|head -n 1)" >> $GITHUB_ENV
 
       - name: tag
-        run: echo ${{steps.tag.outputs.tag }}
+        run: echo ${{env.tag}}
       - name: 'job id'
         run: echo ${{github.run_id}}
       - name: 'commit id'
