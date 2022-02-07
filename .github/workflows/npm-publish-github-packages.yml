@@ -1,4 +1,4 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# This workflow will run tests using node and then publish a package to GitHub Packages when
 # For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
 name: Node.js Package
@@ -11,6 +11,11 @@ on:
       - staged
     tags:
       - '*'
+
+env:
+  ## Sets environment variable
+  master: 3    
+  tag: 0
 
 jobs:
   build:
@@ -65,31 +70,19 @@ jobs:
         with:
           ref: staged
           fetch-depth: 0
-      - name: checkHead
-        id: head
-        run: |
-          echo "::set-output name=head::$(git branch --contains ${{github.sha}})"
-      - name: object json
-        run: echo "${{toJson(github)}}"
-      - name: 'head found'
-        id: tag
-        if: ${{ (steps.tag.outputs.head == 'development') || (steps.tag.outputs.head == 'staged') || (steps.tag.outputs.head == 'master') }}  
-        run: |
-          echo "::set-output name=tag::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
         
-      - name: 'head not found'
-        id: tag
-        if: ${{ (steps.tag.outputs.head != 'development') && (steps.tag.outputs.head != 'staged') && (steps.tag.outputs.head != 'master') }}  
+      - name: get tag from master
+        if: github.ref == 'refs/heads/master'
         run: |
-          $(git tag ${{git tag --contains ${{github.event.commits[github.event.commits.length - 2].id}} --sort=-refname|head -n 1 }} ${{github.sha}})
-          $(git push origin ${{git tag --contains ${{github.event.commits[github.event.commits.length - 2].id}} --sort=-refname|head -n 1 }})
-          echo "::set-output name=tag::$(git tag --contains ${{github.sha}} --sort=-refname|head -n 1)"
-        
-        # uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        # with:
-        #   fallback: 1.0.0 # Optional fallback tag to use when no tag can be found
+          echo "tag=$(git tag --contains ${{github.event.commits[github.event.commits.length-3].id}} --sort=-refname|head -n 1)" >> $GITHUB_ENV
+     
+      - name: get tag from others
+        if: github.ref != 'refs/heads/master'
+        run: |
+          echo "tag=$(git tag --contains ${{github.event.commits[github.event.commits.length-2].id}} --sort=-refname|head -n 1)" >> $GITHUB_ENV
+
       - name: tag
-        run: echo ${{steps.tag.outputs.tag }}
+        run: echo ${{env.tag}}
       - name: 'job id'
         run: echo ${{github.run_id}}
       - name: 'commit id'
